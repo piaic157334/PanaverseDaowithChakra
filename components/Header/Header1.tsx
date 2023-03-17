@@ -1,38 +1,83 @@
-'use client'
-import { Box, Button, Flex, Heading, HStack, Link, List, ListItem } from "@chakra-ui/react";
-import { PhoneIcon, AddIcon, WarningIcon, SearchIcon, MoonIcon } from '@chakra-ui/icons'
-import React from 'react'
+"use client";
 
-export default function Header1() {
+import {
+  Box,
+  Button,
+  Flex,
+  Hide,
+  HStack,
+  Image,
+  Link,
+  List,
+  ListItem,
+  Show,
+  useColorMode,
+} from "@chakra-ui/react";
+import { SearchIcon, MoonIcon } from "@chakra-ui/icons";
+import React from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import Burger from "./Burger";
+import Navmenu from "./Navmenu";
+
+
+export default function Header() {
+  const { colorMode } = useColorMode();
+
   return (
-
-    <Box  as={"header"} position="sticky" top={"0"} zIndex={"1"} >
-      <Flex justifyContent={"space-around"} alignItems={"center"} bg="white" py={"5"} >
-        {/* left area  */}
+    <Box as="header" position={"sticky"} top="0" zIndex={1}>
+      {/* left area */}
+      <Flex
+        justifyContent={"space-around"}
+        alignItems={"center"}
+        bg={colorMode == "dark" ? "black" : "white"}
+        py="5"
+      >
         <Box>
           <HStack>
-
-            <img src="/images/logo.webp" alt="logo" />
-            <List>
-              <HStack spacing={"20"} ml="10px" fontWeight={"bold"}>
-                <ListItem> Home</ListItem>
-                <ListItem> About</ListItem>
-                <ListItem> Contact</ListItem>
+            <Image
+              src="/images/Logo.webp"
+              alt="logo"
+              //   w={"24"}
+              //   h={"12"}
+              //   pb="2"
+            />
+            <Hide below="md">
+              {/* <List>
+                <HStack
+                  align={"center"}
+                  spacing={10}
+                  fontWeight="bold"
+                  ml="40px"
+                >
+                  <ListItem>Home</ListItem>
+                  <ListItem>About</ListItem>
+                  <ListItem>Contact</ListItem>
+                </HStack>
+              </List> */}
+              <HStack spacing={10} pl="10">
+                <Navmenu />
               </HStack>
-            </List>
+            </Hide>
           </HStack>
         </Box>
+        {/* right area */}
+        <HStack>
+          <Box pl="15">
+            <SearchIcon w="25" h="25" />
+          </Box>
+          {/* <Box pl="15">
+            <MoonIcon w="25" h="25" />
+          </Box> */}
+          {/* <ColorModeSwitcher /> */}
 
-        {/* Right Area */}
-        <Box>
-          <Box as="span"> <SearchIcon w="5" h="5" ></SearchIcon> </Box>
-          <Box as="span" px={"5"} > <MoonIcon w="5" h="5"  ></MoonIcon>  </Box>
-          <Link href="https://www.piaic.org/" target={"_blank"} >
-            <Box as="span" > <Button variant={"outline"} > Go to PIAIC </Button> </Box>
+          <Show below="md">
+            <Burger />
+          </Show>
+          <Link href="http://piaic.org/" target={"_blank"}>
+            <Button variant={"outline"}>Go to Piaic</Button>
           </Link>
-        </Box>
+        </HStack>
       </Flex>
     </Box>
-  )
-
+  );
 }
